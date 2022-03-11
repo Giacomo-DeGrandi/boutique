@@ -55,9 +55,6 @@
                         <div class="mb-3 form-check px-4">
                             <button type="submit" class="btn btn-dark px-5 rounded-0" name="submitUserUpdate">update</button>
                         </div>
-                        <div class="mb-3 form-check px-4">
-                            <button type="submit" class="btn btn-dark px-5 rounded-0" name="deleteUser">Delete your account</button>
-                        </div>
                     </div>
                 </form>
             </div>

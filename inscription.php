@@ -39,6 +39,7 @@
                     <div class="form-group col">
                         <label for="exampleInputPassword1">Password</label>
                         <input type="password" class="form-control rounded-0" id="exampleInputPassword1" name="password_1">
+                        <p class="small text-muted"><i>min 8 caractères</i></p>
                     </div>
                     <div class="form-group col">
                         <label for="exampleInputPassword2">Password Confirmation</label>
