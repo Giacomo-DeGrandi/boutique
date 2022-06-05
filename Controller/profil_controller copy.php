@@ -6,27 +6,20 @@ require_once('Model/Produit.php');
 $user= new User();
 
 if(isset($_SESSION['connected']))
-{    
-    $all_infos= $user->getAllInfos();
+{
+    $email=$_SESSION['connected'];
+    $user= new User();
+    $id= $user->getAllUserInfos($email);
 
     // test occurence of password hash
-    $verify=0;
-    foreach($all_infos as $utilisateur => $info)
-    {
-        foreach($info as $column => $value){
-            if( (password_verify($value,$_SESSION['connected'])) ){
-                $email=$value;
-                $verify_profile=1;
-                break;
-            }
-        }
-    }
 
-    //if user and session exist
-    if($verify_profile=1)
-    {  
-        // INFOS________________________________________________________________________________________________________
-        $user_infos = $user->getUserInfos($_SESSION["id"]); // get all my infos for placeholders
+    // INFOS________________________________________________________________________________________________________
+
+    $id=$user->getId($email);
+    $user_infos=$user->getUserInfos($id['id_utilisateur']);
+
+    // get all my infos for placeholders
+
 
         // CART_________________________________________________________________________________________________________
         $cart = new Cart();
@@ -52,14 +45,8 @@ if(isset($_SESSION['connected']))
         // ORDERS_______________________________________________________________________________________________________
         
         $orders=$user->getAllOrders($_SESSION["id"]);
-    } 
-    else 
-    {
-        header('location:connexion.php');  // if the hash doesn't match
-        exit();
     }
-} 
-else 
+else
 {
     header('location:connexion.php');   // if the session doesn't exists
     exit();

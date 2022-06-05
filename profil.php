@@ -1,10 +1,11 @@
-<?php $title = "profil" ?>
+<?php $title = "Profil" ?>
 <?php session_start(); ?>
 
 <?php require_once('Model/User.php'); ?>
 <?php require_once('Model/Cart.php'); ?>
 <?php require_once('Model/Produit.php'); ?>
 <?php require_once('Model/Contient.php'); ?>
+<?php require_once('Model/Search.php'); ?>
 
 <?php require_once('Controller/user_controller.php'); // Models : User  &  Cart  ?>
 <?php require_once('Controller/profil_controller.php'); // Models : User  &  Cart  &  Contient  &  Produit ?>
@@ -12,101 +13,105 @@
 
 
 <?php   ob_start();  ?>
-    <div class="d-flex flex-column justify-content-between align-items-center">
-        
-        <div class="container-fluid">
 
-            <!-- Infos profil -->
-            <div class="container-xl px-4 my-4 border border-secondary border-1">
-                <div class="display-6 px-4 mt-4"><b>Settings </b></div>
-                <form class="px-4 mt-4" id="updateUserForm" method="POST">
-                    <div class=" px-2">
-                        <label for="exampleInputEmail1" class="form-label"><span class="h6">Email address</span></label>
-                        <input type="email" class="form-control rounded-0" name="email" id="exampleInputEmail1" 
-                        aria-describedby="emailHelp" value="<?= $_SESSION["email"]?>">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class=" px-2">
-                        <label for="exampleInputText1" class="form-label"><span class="h6">Prenom</span></label>
-                        <input type="text" class="form-control rounded-0" name="prenom" id="exampleInputText1" 
-                        aria-describedby="textHelp" value="<?= $_SESSION["prenom"]?>">
-                    </div>
-                    <div class=" px-2">
-                        <label for="exampleInputText1" class="form-label"><span class="h6">Nom</span></label>
-                        <input type="text" class="form-control rounded-0" name="nom" id="exampleInputText1" 
-                        aria-describedby="textHelp" value="<?= $_SESSION["nom"]?>">
-                    </div>
-                    <div class=" px-2">
-                        <label for="exampleInputText1" class="form-label"><span class="h6">Address</span></label>
-                        <input type="text" class="form-control rounded-0" name="address" id="exampleInputText1" 
-                        aria-describedby="textHelp" value="<?= $_SESSION["address"]?>">
-                    </div>
-                    <div class=" px-2">
-                        <label for="exampleInputText1" class="form-label"><span class="h6">Code Postal</span></label>
-                        <input type="text" class="form-control rounded-0" name="code_postal" id="exampleInputText1" 
-                        aria-describedby="textHelp" value="<?= $_SESSION["zipCode"]?>">
-                    </div>
-                    <div class="mb-5 px-2">
-                        <label for="exampleInputPassword1" class="form-label"><span class="h6">Password</span></label>
-                        <input type="password" class="form-control rounded-0" name="password" id="exampleInputPassword1">
-                    </div>
-                    <div id="emailHelp" class="form-text small px-4 mb-2">Update your personal informations</div>
-                    <div class="d-flex flex-row">
-                        <div class="mb-3 form-check px-4">
-                            <button type="submit" class="btn btn-dark px-5 rounded-0" name="submitUserUpdate">update</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+<div class="d-flex flex-column justify-content-center align-items-center my-3">
+        
+        <!-- Infos profil -->
+    <div class="container-fluid">
+        <div class="d-flex flex-row justify-content-center ">
+            <form action="" method="POST">
+                <div class="px-2 p-3 mt-1 mb-2">
+                    <h5>Données de facturation</h5>
+                </div>
+
+                <div class="py-1">
+                    <label for="prenom" class="h6 py-1 text-muted px-2 fw-light "><i>Insérer votre prénom</i></label><br>
+                    <input type="text" class="p-1 rounded-1 w-100" placeholder="Prénom" name="prenom" value="<?php echo $_SESSION['prenom'] ?>">
+                </div>
+
+                <div class="py-1">
+                    <label for="nom" class="h6 py-1 text-muted px-2 fw-light "><i>Insérer votre nom</i></label><br>
+                    <input type="text" class="p-1 rounded-1 w-100"  placeholder="Nom" name="nom" value="<?php echo $_SESSION['nom'] ?>">
+                </div>
+
+                <div class="py-1">
+                    <label for="address" class="h6 py-1 text-muted px-2 fw-light"><i>Insérer votre adresse</i></label><br>
+                    <input type="text" class="p-1 rounded-1 w-100"  placeholder="Adresse" name="address" value="<?php echo $_SESSION['address'] ?>">
+                </div>
+
+                <div class="py-1">
+                    <label for="code_postal" class="h6 py-1 text-muted px-2 fw-light"><i>Insérer votre code postal</i></label><br>
+                    <input type="text" class=" p-1 rounded-1 w-100"  placeholder="Code Postal" name="code_postal" value="<?php echo $_SESSION['zipCode'] ?>">
+                </div>
+
+                <div class="px-2 mt-3 mb-1 h5">
+                    Contact
+                </div>
+
+                <div class="py-1">
+                    <label for="email" class="h6 py-1 text-muted px-2 fw-light"><i>Insérer votre email</i></label><br>
+                    <input type="text" class="p-1 rounded-1 w-100" placeholder="Email" name="email" value="<?php echo $_SESSION['email'] ?>">
+                </div>
+
+                <div class="py-1">
+                    <label for="password" class="h6 py-1 text-muted px-2 fw-light"><i>Insérer un mot de passe d'au moins 8 caractères</i></label><br>
+                    <input type="password" class="p-1 rounded-1 w-100"  placeholder="Password" name="password_1" value="<?php echo substr($_SESSION['password'],0,8); ?>" >
+                </div>
+
+                <div class="py-1">
+                    <button type="submit" class="btn btn-dark rounded-2 mb-4 mt-4 p-2 shadow-sm" name="submitUserUpdate">Mettre à jour</button>
+                </div>
+
+            </form>
         </div>
     </div>
-    
+
     <!-- Commandes -->
-    <div class="d-flex flex-column justify-content-between align-items-center">
-        <div class="container-xl px-4 my-4 border border-secondary border-1" id="order-path">
-            <table class="table">
-                <tr class="display-6 px-1 p-2 mt-4 mb-4 text-nowrap">
-                    <th>Commandes</th>
+   
+
+    <div class="container-xl px-4 my-4 border border-secondary border-1">
+
+        <table class="table">
+            <tr class="display-6 px-1 p-2 mt-4 mb-4 text-nowrap">
+                <th>Commandes</th>
+            </tr>
+            <?php if(isset($_SESSION['connected']) and isset($orders)): ?>
+                <tr>
+                    <th>Date</th>
+                    <th class="p-1">Prix Total</th>
+                    <th class="p-1">Payé avec</th>
+                    <th class="p-1">Détails</th>
                 </tr>
-                <?php if(isset($_SESSION['connected']) and isset($orders)): ?>
-                    <tr class=" shadow-sm border border-light border-1 p-3 mb-3 rounded-2">
-                        <th class="p-2">ID Commande</th>
-                        <th class="p-2">Prix Total</th>
-                        <th class="p-2">Date</th>
-                        <th class="p-2">Payé avec</th>
-                        <th class="p-2">Nom</th>
-                        <th class="p-2">Email</th>
-                        <th class="p-2">Details</th>
-                    </tr>
-                    <?php if(!empty($orders)):  ?>
-                        <?php for($i=0;$i<=isset($orders[$i]);$i++): ?>
-                            <tr>
-                                <td class="p-2"><?=  $orders[$i]['id_commande'] ?></td>
-                                <td class="p-2"><?=  $orders[$i]['price'] ?></td>
-                                <td class="p-2"><?=  substr($orders[$i]['date_commande'],0,16) ?></td>
-                                <td class="p-2"><?= $orders[$i]['nom_paiement'] ?></td>
-                                <td class="p-2"><?=  $val1=$user_infos['nom'].' '.$user_infos['prenom']; ?></td>
-                                <td class="p-2"><?=  $user_infos['email'] ?></td>
-                                <td class="p-2">
-                                    <form method="POST" action="">
-                                        <div class="mb-3 form-check px-4">
-                                            <button type="submit" class="btn btn-dark px-1 rounded-2 shadow-sm" name="detailsCommande" value="<?=  $orders[$i]['id_commande'] ?>"><b>details</b></button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endfor; ?>
-                    <?php else: ?>
+                <?php if(!empty($orders)):  ?>
+                    <?php for($i=0;$i<=isset($orders[$i]);$i++): ?>
+                        <?php $date = substr($orders[$i]['date_commande'],0,10)?>
                         <tr>
-                            <th class="row p-2">
-                                you don't have any order yet;
-                            </th>
+                            <td ><?= $date  ?></td>
+                            <td class="p-1"><?=  $orders[$i]['price'] ?> €</td>
+                            <td class="p-1"><?= $orders[$i]['nom_paiement'] ?></td>
+                            <td class="p-1">
+                                <form method="POST" action="">
+                                    <div class="mb-3 form-check">
+                                        <button type="submit" class="btn btn-dark px-1 py-1 rounded-2 shadow-sm" name="detailsCommande" value="<?=  $orders[$i]['id_commande'] ?>"><b>détails</b></button>
+                                    </div>
+                                </form>
+                            </td>
                         </tr>
-                    <?php endif; ?>
+                    <?php endfor; ?>
+                <?php else: ?>
+                    <tr>
+                        <th class="row p-2">
+                            Vous n'avez pas encore de commande
+                        </th>
+                    </tr>
                 <?php endif; ?>
-            </table>
-        </div>
+            <?php endif; ?>
+        </table>
+
     </div>
+
+</div>
+
 <?php  $content=ob_get_clean(); ?>
 
 <?php require ('View/patron.php'); ?>

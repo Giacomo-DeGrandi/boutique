@@ -1,20 +1,22 @@
 <?php ob_start();?>
-<div class="container-fluid px-5 mt-3">
+<div class="container-fluid mt-3">
 
-    <div class="container-fluid px-0 py-0 pe-0 ps-0">
+    <div class="container-fluid">
 
-        <div class="container row row-cols-md-3">
+        <div class="container row row-cols-xl-3">
 
             <!-- pour chaques produits je recupère les infos en fonction de leurs id  -->
             <?php foreach($items as $item):  ?>
-                <div class="shopRow d-flex flex-column">
+                <div class="shopRow d-flex flex-column px-3 mb-5">
 
                     <!-- nom -->
-                    <h4 class= "sizeNom">
-                        <a class= "sizeNom" href="shop.php?article_id=<?=$item['id_produit']?>">
-                            <?= substr($item['nom_produit'],0,50)?>
-                        </a>
-                    </h4>
+                    <div class= "sizeNom mb-2 mt-2">
+                        <h5>
+                            <a href="shop.php?article_id=<?=$item['id_produit']?>">
+                                <?= substr($item['nom_produit'],0,50)?>
+                            </a>
+                        </h5>
+                    </div>
 
                     <!-- img -->
                     <a href='shop.php?article_id=<?= $item["id_produit"]?>' >
@@ -22,8 +24,8 @@
                     </a>
 
                     <!-- ajout au panier -->
-                    <div class="shop-card row p-3">
-                        <small class="text-muted mx-2 text-center mb-2"><?= $item['unit_price'] ."€"?></small>
+                    <div class="shop-card">
+                        <b class="bg-dark text-white h5" style="--bs-bg-opacity: .7;"><?= $item['unit_price'] ."€"?></b>
 
                         <!-- Stock -->
                         <?php if( isset($item['units_in_stock']) && $item['units_in_stock'] == 0) : ?>
@@ -32,31 +34,31 @@
 
                         <?php elseif(isset($item['units_in_stock'])): ?>
 
-                            <form method="POST" class="d-flex flex-row align-items-center w-100">
+                            <form method="POST" class="d-flex flex-row align-items-center mt-3">
 
                                 <!-- Id produit -->
                                 <input type="hidden" name="idProduit" value="<?= $item['id_produit'] ?>">
 
                                 <!-- select Quantity -->
-                                    <label for="quantity" class="">Qté:</label>
-                                    <select class="form-select rounded-0 small"
-                                    aria-label=".form-select-sm example" name="quantity" id="quantity">
-
-                                            <?php   for($j=0;$j<=intval($item['units_in_stock']);$j++): //if units in stock = to false units in stock equal to 0 ?>
-                                                <?php if($j == 1) :?>
-                                                    <option value="<?= $j ?>" SELECTED><?= $j ?></option>
-                                                <?php else : ?>
-                                                    <option value="<?= $j ?>" ><?= $j ?></option>
-                                                <?php endif; ?>
-                                            <?php  endfor; ?>
-
-                                    </select>
+                                <label for="quantity" class="mx-1 h5">Qté:</label>
+                                <select class="form-select rounded-0"
+                                aria-label=".form-select-sm example" name="quantity" id="quantity" style="width:80px">
+                                    
+                                        <?php   for($j=1;$j<=intval($item['units_in_stock']);$j++): //if units in stock = to false units in stock equal to 0 ?>
+                                            <?php if($j == 1) :?>
+                                                <option value="<?= $j ?>" SELECTED><?= $j ?></option>
+                                            <?php else : ?>
+                                                <option value="<?= $j ?>" ><?= $j ?></option>
+                                            <?php endif; ?>
+                                        <?php  endfor; ?>
+                                    
+                                </select>
 
                                 
                                 
                                 <!-- submit -->
-                                <button type="submit" class="btn btn-dark btn-sm rounded-2" name="addToCart" >
-                                    <img src="View/icons/whiteCart.svg" alt="" class="w-50">
+                                <button type="submit" class="btn btn-dark btn-sm rounded-2 mx-2" name="addToCart" >
+                                    <img src="View/icons/whiteCart.png" alt="" id="cartShop">
                                 </button>
                             </form>
                         <?php endif; ?>
